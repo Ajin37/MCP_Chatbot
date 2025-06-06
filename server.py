@@ -3,9 +3,13 @@ import requests
 from dotenv import load_dotenv
 from mcp.server.fastmcp import FastMCP
 
-# Load API key from .env file
-load_dotenv()
-TAVILY_API_KEY = os.getenv("TAVILY_API_KEY")
+# # Load API key from .env file
+# load_dotenv()
+# TAVILY_API_KEY = os.getenv("TAVILY_API_KEY")
+
+import streamlit as st
+TAVILY_API_KEY = st.secrets["TAVILY_API_KEY"]
+
 
 # Initialize MCP server
 mcp = FastMCP(

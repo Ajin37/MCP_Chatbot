@@ -11,19 +11,26 @@ from mcp import ClientSession, StdioServerParameters
 from mcp.client.stdio import stdio_client
 from groq import AsyncGroq
 
-# Load environment variables
-load_dotenv()
+# # Load environment variables
+# load_dotenv()
 
-# Validate environment variables
-if not os.environ.get("GROQ_API_KEY"):
-    raise ValueError("GROQ_API_KEY not found in environment variables")
+# # Validate environment variables
+# if not os.environ.get("GROQ_API_KEY"):
+#     raise ValueError("GROQ_API_KEY not found in environment variables")
+
+import streamlit as st
+
+if "GROQ_API_KEY" not in st.secrets:
+    raise ValueError("GROQ_API_KEY not found in Streamlit secrets")
+
+
 
 # --- Global Shared State ---
 exit_stack = AsyncExitStack()
 session: ClientSession | None = None
 stdio = None
 write = None
-groq_client = AsyncGroq(api_key=os.environ["GROQ_API_KEY"])
+groq_client = AsyncGroq(api_key=st.secrets["GROQ_API_KEY"])
 model = "gemma2-9b-it"
 
 # --- Pydantic Models ---
